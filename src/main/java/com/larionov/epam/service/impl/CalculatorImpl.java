@@ -4,6 +4,8 @@ import com.larionov.epam.service.Calculator;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CalculatorImpl implements Calculator {
 
@@ -81,6 +83,11 @@ public class CalculatorImpl implements Calculator {
 
     @Override
     public void calcRPN(String rpn) {
+        Pattern pattern = Pattern.compile("(0 /|[!@#$%^&*<>,.?|№`~{}:;])");
+        Matcher matcher = pattern.matcher(rpn);
+        if (matcher.find()){
+            throw new IllegalArgumentException();
+        }
         String[] strings = rpn.split(" ");
         Stack<Double> stack = new Stack<>();
         for (int i = 0; i < strings.length; i++) {
