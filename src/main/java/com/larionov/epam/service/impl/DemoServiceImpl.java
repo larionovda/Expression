@@ -10,6 +10,5 @@ public class DemoServiceImpl implements DemoService {
     @Override
     public void service(String string) {
         calculator.calcRPN(calculator.transferToRPN(string));
-
     }
 }

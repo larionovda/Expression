@@ -85,7 +85,7 @@ public class CalculatorImpl implements Calculator {
     public void calcRPN(String rpn) {
         Pattern pattern = Pattern.compile("(0 /|[!@#$%^&*<>,.?|№`~{}:;])");
         Matcher matcher = pattern.matcher(rpn);
-        if (matcher.find()){
+        if (matcher.find()) {
             throw new IllegalArgumentException();
         }
         String[] strings = rpn.split(" ");
