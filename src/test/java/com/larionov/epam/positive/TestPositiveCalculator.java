@@ -9,6 +9,7 @@ import java.util.Stack;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestPositiveCalculator {
 
@@ -30,6 +31,11 @@ public class TestPositiveCalculator {
         Stack<Character> param = new Stack<>();
         Stack<Character> expResult = new Stack<>();
         assertThat(calculator.priorityManager(param, new StringBuilder().append("1 "), 2), is(expResult));
+    }
+
+    @Test
+    void testCalcRPN() {
+        assertThat(calculator.calcRPN("36 4 2 + / 2 * 2 -"), is(10.0));
     }
 
     @Test

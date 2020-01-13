@@ -6,6 +6,6 @@ import com.larionov.epam.service.impl.DemoServiceImpl;
 public class Main {
     public static void main(String[] args) {
         DemoService demoService = new DemoServiceImpl();
-        demoService.service("36 / (4 + 2)");
+        demoService.service("36 / (4 + 2) * 2 - 2");
     }
 }

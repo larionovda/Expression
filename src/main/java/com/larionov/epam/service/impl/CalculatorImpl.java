@@ -15,29 +15,24 @@ public class CalculatorImpl implements Calculator {
         StringBuilder current = new StringBuilder();
         Stack<Character> stack = new Stack<>();
         int priority;
-        try {
-            for (int i = 0; i < newExpr.length(); i++) {
-                priority = getPriority(newExpr.charAt(i)); // определяем приоритет текущего символа из строки
-                if (priority == 0) { // если встретилось обычное число
-                    current.append(newExpr.charAt(i)); // вставляем обычное число в стрингбилдер current
-                } else if (priority == 1) { // если открывающаяся скобка, то сразу отправляем ее в стэк
-                    stack.push(newExpr.charAt(i));
-                } else if (priority > 1) { // если встретился любой математический знак, то отправляем его в стэк
-                    current.append(' ');
-                    priorityManager(stack, current, priority).push(newExpr.charAt(i)); // отправляем текущий символ в стэк
-                } else if (priority == -1) { // если мы встретили закрывающуюся скобку
-                    current.append(' ');
-                    while (getPriority(stack.peek()) != 1) { // извлекаем знаки из стека до тех пор пока не встретим открывающуюся скобку
-                        current.append(stack.pop());
-                    }
-                    stack.pop(); // извлекаем открывающуюся скобку
+        for (int i = 0; i < newExpr.length(); i++) {
+            priority = getPriority(newExpr.charAt(i)); // определяем приоритет текущего символа из строки
+            if (priority == 0) { // если встретилось обычное число
+                current.append(newExpr.charAt(i)); // вставляем обычное число в стрингбилдер current
+            } else if (priority == 1) { // если открывающаяся скобка, то сразу отправляем ее в стэк
+                stack.push(newExpr.charAt(i));
+            } else if (priority > 1) { // если встретился любой математический знак, то отправляем его в стэк
+                current.append(' ');
+                priorityManager(stack, current, priority).push(newExpr.charAt(i)); // отправляем текущий символ в стэк
+            } else if (priority == -1) { // если мы встретили закрывающуюся скобку
+                current.append(' ');
+                while (getPriority(stack.peek()) != 1) { // извлекаем знаки из стека до тех пор пока не встретим открывающуюся скобку
+                    current.append(stack.pop());
                 }
+                stack.pop(); // извлекаем открывающуюся скобку
             }
-            return filingString(stack, current);
-        } catch (EmptyStackException e) {
-            System.out.println("Введены некорректные данные");
         }
-        return "";
+        return filingString(stack, current);
     }
 
     @Override
@@ -82,8 +77,8 @@ public class CalculatorImpl implements Calculator {
     }
 
     @Override
-    public void calcRPN(String rpn) {
-        Pattern pattern = Pattern.compile("(0 /|[!@#$%^&*<>,.?|№`~{}:;])");
+    public double calcRPN(String rpn) {
+        Pattern pattern = Pattern.compile("(0 /|[!@#$%^&<>,.?|№`~{}:;])");
         Matcher matcher = pattern.matcher(rpn);
         if (matcher.find()) {
             throw new IllegalArgumentException();
@@ -117,10 +112,11 @@ public class CalculatorImpl implements Calculator {
             }
         }
         if (!stack.empty()) {
-            System.out.println(stack.pop());
+            return stack.pop();
         } else {
             System.out.println("Произошла ошибка");
         }
+        return 0.0;
     }
 
     @Override

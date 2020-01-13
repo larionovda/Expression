@@ -11,7 +11,7 @@ public interface Calculator {
 
     boolean isNumber(String str);
 
-    void calcRPN(String rpn);
+    double calcRPN(String rpn);
 
     int getPriority(char token);
 
